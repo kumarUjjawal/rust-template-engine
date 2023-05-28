@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 // Each line in input can be of one of the following
 #[derive(PartialEq, Debug)]
 pub enum ContentType {
@@ -85,6 +87,26 @@ pub fn get_index_for_symbol(input: &str, symbol: char) -> (bool, usize) {
     }
     (does_exist, index)
 }
+pub fn generate_html_template_var(
+    content: ExpressionData,
+    context: HashMap<String, String>,
+) -> String {
+    let mut html = String::new();
+    println!("expression data is:{:?}", content);
+    if let Some(h) = content.head {
+        html.push_str(&h);
+    }
+
+    if let Some(val) = context.get(&content.variable) {
+        html.push_str(&val);
+    }
+
+    if let Some(t) = content.tail {
+        html.push_str(&t);
+    }
+
+    html
+}
 
 #[cfg(test)]
 mod tests {
@@ -122,7 +144,7 @@ mod tests {
     fn check_if_tag_test() {
         assert_eq!(
             ContentType::Tag(TagType::IfTag),
-            get_content_type("{% if name == 'Bob' %}")
+            get_content_type("{% if name == 'Ujjawal' %}")
         );
     }
 
@@ -132,7 +154,7 @@ mod tests {
     }
 
     #[test]
-    fn check_symbol_pari_test() {
+    fn check_symbol_pair_test() {
         assert_eq!(true, check_matching_pair("{{Hello}}", "{{", "}}"));
     }
 }
