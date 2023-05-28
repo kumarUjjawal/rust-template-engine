@@ -2,8 +2,7 @@
 
 ## Here is how it works:
 
-1. The template string is fed to the parser. The template string in our example is
-<p> Welcome {{name}} </p>.
+1. The template string is fed to the parser.
 
 2. The parser first determines the type of template string, which is called tokenizing.
 Let's consider three types of tokens – if tags, for tags, and template variables. In
